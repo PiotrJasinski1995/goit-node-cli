@@ -1,0 +1,30 @@
+{
+  "name": "goit-node-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "start:dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PiotrJasinski1995/goit-node-cli.git"
+  },
+  "keywords": [],
+  "author": "Piotr Jasinski <piotr.jasinski1995@gmail.com>",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/PiotrJasinski1995/goit-node-cli/issues"
+  },
+  "homepage": "https://github.com/PiotrJasinski1995/goit-node-cli#readme",
+  "dependencies": {
+    "commander": "^14.0.0",
+    "nanoid": "^5.1.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
