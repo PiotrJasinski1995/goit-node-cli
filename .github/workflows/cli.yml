@@ -1,0 +1,61 @@
+name: CLI tests
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  run-cli:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      # Reset contacts.json to known test data
+      - name: Reset contacts.json
+        run: |
+          echo '[
+            {
+              "id": "05olLMgyVQdWRwgKfg5J6",
+              "name": "Test User",
+              "email": "test@example.com",
+              "phone": "123456789"
+            },
+            {
+              "id": "qdggE76Jtbfd9eWJHrssH",
+              "name": "Delete Me",
+              "email": "delete@example.com",
+              "phone": "987654321"
+            }
+          ]' > db/contacts.json
+
+      # 1. List contacts
+      - name: List contacts
+        run: node index.js -a list
+
+      # 2. Get contact by ID
+      - name: Get contact by ID
+        run: node index.js -a get -i 05olLMgyVQdWRwgKfg5J6
+
+      # 3. Add new contact
+      - name: Add a new contact
+        run: node index.js -a add -n Mango -e mango@gmail.com -p 322-22-22
+
+      # 4. Remove contact by ID
+      - name: Remove a contact
+        run: node index.js -a remove -i qdggE76Jtbfd9eWJHrssH
+
+      # Show final file state
+      - name: Show final contacts.json
+        run: cat db/contacts.json
